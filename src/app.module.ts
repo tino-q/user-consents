@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { dbConfig } from './environment';
+import { ConfigModule } from '@nestjs/config';
+import { environmentSchema } from './env.schema';
+import { DatabaseModule } from './db.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      ...dbConfig,
-      entities: [],
-      synchronize: true,
+    ConfigModule.forRoot({
+      validationSchema: environmentSchema,
     }),
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
