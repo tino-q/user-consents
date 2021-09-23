@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { HealthService } from './health.service';
 import { ConfigModule } from '@nestjs/config';
 import { environmentSchema } from './env.schema';
 import { DatabaseModule } from './db.module';
@@ -15,6 +15,6 @@ import { UserModule } from './user/user.module';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [HealthService],
 })
 export class AppModule {}
