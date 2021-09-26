@@ -6,9 +6,10 @@ import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
 export const initialize = (app: INestApplication) => {
   const config = new DocumentBuilder()
     .setTitle("User's consents")
-    .setDescription('User consent administration')
+    .setDescription('User consent administration API')
     .setVersion('1.0')
-    .addTag('consents')
+    .addTag('Consents')
+    .addTag('System')
     .build();
   const document = SwaggerModule.createDocument(app, config);
 
