@@ -1,4 +1,4 @@
-# docker-compose.yml
+# docker-compose-test.yml
 version: '3'
 services:
   db:
@@ -6,13 +6,14 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: didomidb
+      POSTGRES_DB: didomidb-test
     ports:
       - '5432:5432'
   app:
     build: .
     environment:
-      TYPEORM_DATABASE: didomidb
+      NODE_ENV: test
+      TYPEORM_DATABASE: didomidb-test
       TYPEORM_HOST: db
     depends_on:
       - db
