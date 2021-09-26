@@ -8,6 +8,7 @@ export const initialize = (app: INestApplication) => {
     .setTitle("User's consents")
     .setDescription('User consent administration API')
     .setVersion('1.0')
+    .addTag('Users')
     .addTag('Consents')
     .addTag('System')
     .build();

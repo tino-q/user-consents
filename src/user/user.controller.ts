@@ -18,7 +18,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-@ApiTags('Consents')
+@ApiTags('Users')
 @Controller('users')
 @ApiInternalServerErrorResponse({
   description: 'Internal server error',
