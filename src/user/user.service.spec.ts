@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { buildUser } from '../../test/factories/user.factory';
+import { buildUser } from '../test/factories/user.factory';
 import { UserCustomRepository } from './user.repository';
 
 describe('UserService', () => {

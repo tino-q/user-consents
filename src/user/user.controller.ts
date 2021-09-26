@@ -7,10 +7,11 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateUserDto, UserIdParams } from './user.dto';
+import { CreateUserDto, SerializedUserDto, UserIdParams } from './user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 import { NotFoundInterceptor } from '../interceptors/notFound';
+import { ApiCreatedResponse } from '@nestjs/swagger';
 
 @Controller('users')
 export class UserController {
@@ -23,6 +24,10 @@ export class UserController {
   }
 
   @Post()
+  @ApiCreatedResponse({
+    description: 'The record has been successfully created.',
+    type: SerializedUserDto,
+  })
   public create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.create(createUserDto);
   }

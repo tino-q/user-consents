@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { buildUser } from '../../test/factories/user.factory';
+import { buildUser } from '../test/factories/user.factory';
 
 describe('UserController', () => {
   const TEST_ERROR = 'TEST_ERROR';
