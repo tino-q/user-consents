@@ -12,3 +12,13 @@ export class UserIdParams {
   @IsUUID()
   id: string;
 }
+
+export class SerializedUserDto {
+  @ApiProperty({ example: 'test@email.com' })
+  @IsEmail()
+  email: string;
+
+  @ApiProperty()
+  @IsUUID()
+  id: string;
+}
