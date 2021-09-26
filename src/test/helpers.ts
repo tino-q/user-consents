@@ -8,6 +8,11 @@ export const getTestApp = async (): Promise<INestApplication> => {
   }).compile();
 
   const app = moduleFixture.createNestApplication();
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
   return app;
 };

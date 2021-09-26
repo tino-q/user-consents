@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { IsEmail, IsUUID } from 'class-validator';
 
 export class CreateUserDto {
@@ -13,12 +13,7 @@ export class UserIdParams {
   id: string;
 }
 
-export class SerializedUserDto {
-  @ApiProperty({ example: 'test@email.com' })
-  @IsEmail()
-  email: string;
-
-  @ApiProperty()
-  @IsUUID()
-  id: string;
-}
+export class SerializedUserDto extends IntersectionType(
+  CreateUserDto,
+  UserIdParams,
+) {}
