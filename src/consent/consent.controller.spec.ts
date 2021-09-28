@@ -8,12 +8,14 @@ import { BadRequestException } from '@nestjs/common';
 import { ConsentId } from './types';
 import { ConsentDto } from './consent.dto';
 import { CreateUserConsentChangedEventDto } from '../../src/user/user.dto';
+import { UserService } from '../../src/user/user.service';
 
 describe('ConsentController', () => {
   const TEST_ERROR = 'TEST_ERROR';
 
   let consentController: ConsentController;
   let consentService: jest.Mocked<ConsentService>;
+  let userService: jest.Mocked<UserService>;
   let user: User;
   let testDto: CreateUserConsentChangedEventDto;
 
@@ -27,10 +29,17 @@ describe('ConsentController', () => {
             createUserConsentChangedEvents: jest.fn(),
           }),
         },
+        {
+          provide: UserService,
+          useFactory: () => ({
+            findOneById: jest.fn(),
+          }),
+        },
       ],
     }).compile();
     consentController = testingModule.get<ConsentController>(ConsentController);
     consentService = testingModule.get(ConsentService);
+    userService = testingModule.get(UserService);
     user = buildUser('test@test.com');
 
     testDto = {
@@ -43,10 +52,14 @@ describe('ConsentController', () => {
 
   describe('Create an event', () => {
     it('Calls consentService.createUserConsentChangedEvents accordingly', async () => {
+      userService.findOneById.mockResolvedValueOnce(user);
       const result = await consentController.createUserConsentChangedEvent(
         testDto,
       );
       expect(result).toBeUndefined();
+
+      expect(userService.findOneById).toHaveBeenCalledTimes(1);
+      expect(userService.findOneById).toHaveBeenCalledWith(testDto.user.id);
 
       expect(
         consentService.createUserConsentChangedEvents,
@@ -57,10 +70,11 @@ describe('ConsentController', () => {
     });
 
     it('Bubbles up exceptions on consentService.createUserConsentChangedEvents', async () => {
+      userService.findOneById.mockResolvedValueOnce(user);
       consentService.createUserConsentChangedEvents.mockRejectedValueOnce(
         TEST_ERROR,
       );
-      expect(
+      await expect(
         consentController.createUserConsentChangedEvent(testDto),
       ).rejects.toEqual(TEST_ERROR);
 
@@ -91,7 +105,7 @@ describe('ConsentController', () => {
       async (...consents: ConsentDto[]) => {
         testDto.consents = consents;
 
-        expect(() =>
+        await expect(() =>
           consentController.createUserConsentChangedEvent(testDto),
         ).rejects.toEqual(
           new BadRequestException('Consents array must contain unique entries'),

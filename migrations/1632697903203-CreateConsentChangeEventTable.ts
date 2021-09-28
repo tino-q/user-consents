@@ -8,7 +8,7 @@ export class CreateConsentChangeEventTable1632697903203
       CREATE TYPE consent AS ENUM ('sms_notifications', 'email_notifications');
       CREATE TABLE "UserConsentChangedEvent" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "user_id" uuid NOT NULL REFERENCES "User" (id),
+        "user_id" uuid NOT NULL,
         "enabled" boolean NOT NULL,
         "consent_id" consent NOT NULL,
         "created_at" TIMESTAMP NOT NULL DEFAULT now(), 
