@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { HealthService, SerializedHealth } from './health.service';
+import { SerializedHealth } from './health.dto';
+import { HealthService } from './health.service';
 
 @Controller()
 export class AppController {
