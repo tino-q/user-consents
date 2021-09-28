@@ -7,7 +7,12 @@ import {
   Post,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateUserDto, SerializedUserDto, UserIdParams } from './user.dto';
+import {
+  CreateUserDto,
+  SerializedUserDto,
+  SerializedUserWithConsentsDto,
+  UserIdParams,
+} from './user.dto';
 import { UserService } from './user.service';
 import { NotFoundInterceptor } from '../interceptors/notFound';
 import {
@@ -17,6 +22,8 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { User } from './user.entity';
+import { ConsentService } from '../../src/consent/consent.service';
 
 @ApiTags('Users')
 @Controller('users')
@@ -24,17 +31,34 @@ import {
   description: 'Internal server error',
 })
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly consentService: ConsentService,
+  ) {}
 
   @Get(':id')
   @ApiOperation({ summary: "Find an user by it's id" })
   @ApiOkResponse({
     description: 'The serialized user',
-    type: SerializedUserDto,
+    type: SerializedUserWithConsentsDto,
   })
   @UseInterceptors(NotFoundInterceptor)
-  public getOne(@Param() params: UserIdParams) {
-    return this.userService.findOneById(params.id);
+  public async getOne(
+    @Param() params: UserIdParams,
+  ): Promise<SerializedUserWithConsentsDto | null> {
+    const user: User | null = await this.userService.findOneById(params.id);
+
+    if (!user) {
+      return null;
+    }
+
+    const consents = await this.consentService.getConsentsForUser(user);
+
+    return {
+      id: user.id,
+      email: user.email,
+      consents,
+    };
   }
 
   @Post()

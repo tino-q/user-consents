@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { environmentSchema } from './env.schema';
 import { DatabaseModule } from './db.module';
 import { UserModule } from './user/user.module';
+import { ConsentModule } from './consent/consent.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UserModule } from './user/user.module';
     }),
     DatabaseModule,
     UserModule,
+    ConsentModule,
   ],
   controllers: [AppController],
   providers: [HealthService],

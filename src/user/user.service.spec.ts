@@ -19,7 +19,7 @@ describe('UserService', () => {
         {
           provide: UserCustomRepository,
           useFactory: () => ({
-            save: jest.fn(),
+            createUser: jest.fn(),
             findOneById: jest.fn(),
             delete: jest.fn(),
           }),
@@ -32,23 +32,23 @@ describe('UserService', () => {
   });
 
   describe('creation of user', () => {
-    it('calls userRepository.save and returns its response', async () => {
-      userRepository.save.mockResolvedValueOnce(user);
+    it('calls userRepository.createUser and returns its response', async () => {
+      userRepository.createUser.mockResolvedValueOnce(user);
 
       const result = await userService.create(user);
       expect(result).toBe(user);
 
-      expect(userRepository.save).toHaveBeenCalledTimes(1);
-      expect(userRepository.save).toHaveBeenCalledWith(user);
+      expect(userRepository.createUser).toHaveBeenCalledTimes(1);
+      expect(userRepository.createUser).toHaveBeenCalledWith(user);
     });
 
     it('bubbles up userRepository.create exceptions', async () => {
-      userRepository.save.mockRejectedValueOnce(TEST_ERROR);
+      userRepository.createUser.mockRejectedValueOnce(TEST_ERROR);
 
       await expect(() => userService.create(user)).rejects.toEqual(TEST_ERROR);
 
-      expect(userRepository.save).toHaveBeenCalledTimes(1);
-      expect(userRepository.save).toHaveBeenCalledWith(user);
+      expect(userRepository.createUser).toHaveBeenCalledTimes(1);
+      expect(userRepository.createUser).toHaveBeenCalledWith(user);
     });
   });
 

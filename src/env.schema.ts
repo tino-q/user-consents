@@ -9,4 +9,5 @@ export const environmentSchema: Joi.ObjectSchema = Joi.object({
   TYPEORM_DATABASE: Joi.string().required(),
   TYPEORM_CONNECTION: Joi.string().required(),
   TYPEORM_MIGRATIONS: Joi.string().required(),
+  TYPEORM_LOGGING: Joi.string(),
 });

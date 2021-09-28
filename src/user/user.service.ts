@@ -7,8 +7,8 @@ import { UserCustomRepository } from './user.repository';
 export class UserService {
   public constructor(private userRepository: UserCustomRepository) {}
 
-  public create(user: CreateUserDto): Promise<User> {
-    return this.userRepository.save(user);
+  public create(user: CreateUserDto): Promise<User | never> {
+    return this.userRepository.createUser(user);
   }
 
   public async delete(id: string): Promise<void> {

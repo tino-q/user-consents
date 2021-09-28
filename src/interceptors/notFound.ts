@@ -14,7 +14,8 @@ export class NotFoundInterceptor implements NestInterceptor {
       // next.handle() is an Observable of the controller's result value
       return next.handle().pipe(
         tap((data) => {
-          if (data === undefined) throw new NotFoundException();
+          if (data === undefined || data === null)
+            throw new NotFoundException();
         }),
       );
     }

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user/user.entity';
+import { UserConsentChangedEvent } from './consent/userConsentChangedEvent.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { User } from './user/user.entity';
         username: configService.get('TYPEORM_USERNAME'),
         password: configService.get('TYPEORM_PASSWORD'),
         database: configService.get('TYPEORM_DATABASE'),
-        entities: [User],
+        logging: configService.get('TYPEORM_LOGGING') === 'true',
+        entities: [User, UserConsentChangedEvent],
       }),
     }),
   ],

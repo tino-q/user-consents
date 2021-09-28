@@ -1,5 +1,7 @@
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
-import { IsEmail, IsUUID } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsEmail, IsUUID, ValidateNested } from 'class-validator';
+import { ConsentsDto } from '../../src/consent/consent.dto';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'test@email.com' })
@@ -13,7 +15,24 @@ export class UserIdParams {
   id: string;
 }
 
+export class UserDto {
+  @ApiProperty({ type: UserIdParams })
+  @ValidateNested()
+  @Type(() => UserIdParams)
+  user: UserIdParams;
+}
+
 export class SerializedUserDto extends IntersectionType(
   CreateUserDto,
   UserIdParams,
+) {}
+
+export class SerializedUserWithConsentsDto extends IntersectionType(
+  SerializedUserDto,
+  ConsentsDto,
+) {}
+
+export class CreateUserConsentChangedEventDto extends IntersectionType(
+  UserDto,
+  ConsentsDto,
 ) {}
