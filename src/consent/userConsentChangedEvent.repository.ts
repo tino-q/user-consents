@@ -20,7 +20,7 @@ export class UserConsentChangedEventCustomRepository extends Repository<UserCons
     try {
       await this.save(events);
     } catch (error) {
-      if (error?.constraint === 'UserConsentChangedEvent_user_id_fkey') {
+      if (error.constraint === 'UserConsentChangedEvent_user_id_fkey') {
         throw new NotFoundException(User);
       }
       throw error;

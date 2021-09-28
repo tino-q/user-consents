@@ -13,7 +13,7 @@ export class UserCustomRepository extends Repository<User> {
     try {
       return await this.save(user);
     } catch (error) {
-      if (error?.constraint === 'User_email_key') {
+      if (error.constraint === 'User_email_key') {
         throw new BadRequestException(400, 'Email already registered');
       }
       throw error;
