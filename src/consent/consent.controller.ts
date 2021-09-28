@@ -6,6 +6,7 @@ import {
   Post,
 } from '@nestjs/common';
 import {
+  ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
   ApiOperation,
@@ -28,7 +29,7 @@ export class ConsentController {
   ) {}
   @Post()
   @ApiOperation({ summary: 'Send a user consent changed event' })
-  @ApiOkResponse({
+  @ApiCreatedResponse({
     description: 'Event acknowledged',
   })
   public async createUserConsentChangedEvent(

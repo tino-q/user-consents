@@ -28,7 +28,7 @@ describe('UserService', () => {
     }).compile();
     userRepository = testingModule.get(UserCustomRepository);
     userService = testingModule.get(UserService);
-    user = buildUser('test@test.com');
+    user = buildUser();
   });
 
   describe('creation of user', () => {

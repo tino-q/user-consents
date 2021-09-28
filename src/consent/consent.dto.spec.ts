@@ -11,7 +11,7 @@ describe('Consent.dto', () => {
   let user: User;
 
   beforeEach(async () => {
-    user = buildUser('test@test.com');
+    user = buildUser();
 
     dto = plainToClass(CreateUserConsentChangedEventDto, {
       user: {

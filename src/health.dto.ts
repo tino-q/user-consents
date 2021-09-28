@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SerializedHealth {
-  @ApiProperty()
+  @ApiProperty({ example: 'ok' })
   status: 'ok';
 
-  @ApiProperty()
+  @ApiProperty({ example: 73212 })
   uptime: number;
 }

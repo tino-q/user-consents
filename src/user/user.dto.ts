@@ -10,7 +10,7 @@ export class CreateUserDto {
 }
 
 export class UserIdParams {
-  @ApiProperty()
+  @ApiProperty({ example: '9551823d-403a-48c5-871b-3201be7ec07c' })
   @IsUUID()
   id: string;
 }

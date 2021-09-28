@@ -30,7 +30,7 @@ describe('ConsentService', () => {
       UserConsentChangedEventCustomRepository,
     );
     consentService = testingModule.get(ConsentService);
-    user = buildUser('test@test.com');
+    user = buildUser();
   });
 
   describe('createUserConsentChangedEvents', () => {

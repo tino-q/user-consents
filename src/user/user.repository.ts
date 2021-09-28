@@ -1,6 +1,6 @@
-import { BadRequestException } from '@nestjs/common';
 import { Repository, EntityRepository } from 'typeorm';
 import { User } from './user.entity';
+import { EmailAlreadyRegisteredException } from './user.exceptions';
 
 @EntityRepository(User)
 export class UserCustomRepository extends Repository<User> {
@@ -14,7 +14,7 @@ export class UserCustomRepository extends Repository<User> {
       return await this.save(user);
     } catch (error) {
       if (error.constraint === 'User_email_key') {
-        throw new BadRequestException(400, 'Email already registered');
+        throw new EmailAlreadyRegisteredException();
       }
       throw error;
     }

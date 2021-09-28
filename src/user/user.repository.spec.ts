@@ -4,6 +4,7 @@ import { buildUser } from '../test/factories/user.factory';
 import { UserCustomRepository } from './user.repository';
 import { Repository } from 'typeorm';
 import { BadRequestException } from '@nestjs/common';
+import { EmailAlreadyRegisteredException } from './user.exceptions';
 
 describe('UserRepository', () => {
   const TEST_ERROR = 'TEST_ERROR';
@@ -20,7 +21,7 @@ describe('UserRepository', () => {
     userRepository = testingModule.get(UserCustomRepository);
     userRepository.findOne = jest.fn();
     userRepository.save = jest.fn();
-    user = buildUser('test@test.com');
+    user = buildUser();
   });
 
   describe('finding of user', () => {
@@ -65,7 +66,7 @@ describe('UserRepository', () => {
         constraint: 'User_email_key',
       });
       await expect(() => userCustomRepository.createUser(user)).rejects.toEqual(
-        new BadRequestException(400, 'Email already registered'),
+        new EmailAlreadyRegisteredException(),
       );
       expect(userRepository.save).toHaveBeenCalledTimes(1);
       expect(userRepository.save).toHaveBeenCalledWith(user);

@@ -42,7 +42,7 @@ describe('UserConsentChangedEventCustomRepository', () => {
     });
     eventRepository.save = jest.fn();
 
-    user = buildUser('test@test.com');
+    user = buildUser();
   });
 
   describe('findEventsOrderedByCreation', () => {

@@ -40,7 +40,7 @@ describe('ConsentController', () => {
     consentController = testingModule.get<ConsentController>(ConsentController);
     consentService = testingModule.get(ConsentService);
     userService = testingModule.get(UserService);
-    user = buildUser('test@test.com');
+    user = buildUser();
 
     testDto = {
       user: {

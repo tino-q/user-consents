@@ -36,7 +36,7 @@ describe('UserController', () => {
     userController = testingModule.get<UserController>(UserController);
     userServiceMock = testingModule.get(UserService);
     consentService = testingModule.get(ConsentService);
-    user = buildUser('test@test.com');
+    user = buildUser();
   });
 
   describe('creation of user', () => {

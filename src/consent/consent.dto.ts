@@ -10,7 +10,7 @@ import {
 import { ConsentId } from './types';
 
 export class ConsentDto {
-  @ApiProperty({ enum: ConsentId })
+  @ApiProperty({ enum: ConsentId, example: ConsentId.email_notifications })
   @IsEnum(ConsentId)
   id: ConsentId;
 
@@ -20,7 +20,7 @@ export class ConsentDto {
 }
 
 export class ConsentsDto {
-  @ApiProperty({ type: ConsentDto })
+  @ApiProperty({ type: [ConsentDto] })
   @ValidateNested()
   @IsArray()
   @Type(() => ConsentDto)

@@ -16,14 +16,17 @@ import {
 import { UserService } from './user.service';
 import { NotFoundInterceptor } from '../interceptors/notFound';
 import {
+  ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './user.entity';
 import { ConsentService } from '../../src/consent/consent.service';
+import { EmailAlreadyRegisteredException } from './user.exceptions';
 
 @ApiTags('Users')
 @Controller('users')
@@ -42,6 +45,7 @@ export class UserController {
     description: 'The serialized user',
     type: SerializedUserWithConsentsDto,
   })
+  @ApiNotFoundResponse({ description: 'User not found' })
   @UseInterceptors(NotFoundInterceptor)
   public async getOne(
     @Param() params: UserIdParams,
@@ -67,6 +71,10 @@ export class UserController {
     description: 'The record has been successfully created.',
     type: SerializedUserDto,
   })
+  @ApiBadRequestResponse({
+    type: EmailAlreadyRegisteredException,
+    description: 'Email already registered',
+  })
   public create(
     @Body() createUserDto: CreateUserDto,
   ): Promise<SerializedUserDto> {
@@ -76,7 +84,7 @@ export class UserController {
   @Delete(':id')
   @ApiOperation({ summary: "Delete an user by it's id" })
   @ApiOkResponse({
-    description: 'User deleted',
+    description: 'Acknowledged',
   })
   public delete(@Param() params: UserIdParams) {
     return this.userService.delete(params.id);
