@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { buildUser } from '../test/factories/user.factory';
 import { UserCustomRepository } from './user.repository';
+import { DeleteResult } from 'typeorm';
 
 describe('UserService', () => {
   const TEST_ERROR = 'TEST_ERROR';
@@ -76,7 +77,7 @@ describe('UserService', () => {
 
   describe('deleting of an user', () => {
     it('calls userService.delete and returns its response', async () => {
-      userRepository.delete.mockResolvedValueOnce(undefined);
+      userRepository.delete.mockResolvedValueOnce({} as DeleteResult);
 
       const result = await userService.delete(user.id);
       expect(result).toBeUndefined();

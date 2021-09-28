@@ -37,10 +37,12 @@ describe('User Controller e2e', () => {
       );
       expect(response.statusCode).toEqual(201);
 
-      const user: User = await userRepository.findOneById(response.body.id);
+      const user: User | null = await userRepository.findOneById(
+        response.body.id,
+      );
       expect(user).toBeDefined();
-      expect(user.email).toEqual(email);
-      expect(user.id).toEqual(response.body.id);
+      expect(user?.email).toEqual(email);
+      expect(user?.id).toEqual(response.body.id);
     });
 
     it.each([[undefined], [null], ['notanemail']])(

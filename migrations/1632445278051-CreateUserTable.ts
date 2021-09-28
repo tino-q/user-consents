@@ -6,13 +6,17 @@ export class CreateUserTable1632445278051 implements MigrationInterface {
       CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
       CREATE TABLE "User" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "email" text NOT NULL,
-        CONSTRAINT pk_user_id_email PRIMARY KEY ("email")
+        "email" text NOT NULL UNIQUE,
+        CONSTRAINT pk_user_id PRIMARY KEY ("id")
       );
+      CREATE UNIQUE INDEX user_email_idx ON "User" (email);
     `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE "User";`);
+    await queryRunner.query(`
+      DROP INDEX user_email_idx;
+      DROP TABLE "User";
+    `);
   }
 }
