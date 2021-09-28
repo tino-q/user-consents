@@ -12,8 +12,15 @@ services:
   app:
     build: .
     environment:
+      NODE_ENV: dev
       TYPEORM_DATABASE: didomidb
       TYPEORM_HOST: db
+      TYPEORM_CONNECTION: postgres
+      TYPEORM_USERNAME: postgres
+      TYPEORM_PASSWORD: postgres
+      TYPEORM_PORT: 5432
+      TYPEORM_MIGRATIONS: './dist/migrations/*.js'
+      TYPEORM_LOGGING: 'false'
     depends_on:
       - db
     ports:

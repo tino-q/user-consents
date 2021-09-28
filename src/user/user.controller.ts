@@ -16,12 +16,12 @@ import {
 import { UserService } from './user.service';
 import { NotFoundInterceptor } from '../interceptors/notFound';
 import {
-  ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './user.entity';
@@ -71,9 +71,10 @@ export class UserController {
     description: 'The record has been successfully created.',
     type: SerializedUserDto,
   })
-  @ApiBadRequestResponse({
+  @ApiResponse({
     type: EmailAlreadyRegisteredException,
     description: 'Email already registered',
+    status: 422,
   })
   public create(
     @Body() createUserDto: CreateUserDto,
