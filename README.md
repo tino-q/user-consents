@@ -1,6 +1,6 @@
 ## Description
 
-User consent management API built on NestJS (Express), typeorm and PostgreSQL.
+User consent management API built on NestJS (Express), Typeorm and PostgreSQL.
 
 Bundled with docker-compose.
 
@@ -18,19 +18,11 @@ $ npm run docker:test
 
 ## Running on docker
 
-Note: if running after tests run docker:restart
-
 ```bash
 $ npm run docker
 ```
 
 Swagger documentation should be available [here](http://localhost:3000/api)
-
-To restart the database:
-
-```bash
-$ npm run docker:restart
-```
 
 ## Running custom PostgreSQL database
 

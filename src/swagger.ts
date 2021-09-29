@@ -9,7 +9,6 @@ export const initialize = (app: INestApplication) => {
     .setDescription('User consent administration API')
     .setVersion('1.0')
     .addTag('Users')
-    .addTag('Consents')
     .addTag('System')
     .build();
   const document = SwaggerModule.createDocument(app, config);

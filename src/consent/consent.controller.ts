@@ -8,7 +8,6 @@ import {
 import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
-  ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
@@ -17,7 +16,7 @@ import { CreateUserConsentChangedEventDto } from '../../src/user/user.dto';
 import { ConsentService } from './consent.service';
 import { User } from '../../src/user/user.entity';
 
-@ApiTags('Events')
+@ApiTags('Consent Events')
 @Controller('events')
 @ApiInternalServerErrorResponse({
   description: 'Internal server error',
