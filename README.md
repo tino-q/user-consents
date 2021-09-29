@@ -26,7 +26,7 @@ $ npm run docker
 
 Once running Swagger documentation should be available [here](http://localhost:3000/api)
 
-## Running custom PostgreSQL database
+## Running with custom PostgreSQL database
 
 ```bash
 $ cp .env.example .env
