@@ -24,7 +24,7 @@ $ npm run docker:test
 $ npm run docker
 ```
 
-Swagger documentation should be available [here](http://localhost:3000/api)
+Once running Swagger documentation should be available [here](http://localhost:3000/api)
 
 ## Running custom PostgreSQL database
 
