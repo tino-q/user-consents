@@ -12,6 +12,8 @@ $ npm install
 
 ## Run all tests and check coverage
 
+Make sure docker daemon is running then:
+
 ```bash
 $ npm run docker:test
 ```
