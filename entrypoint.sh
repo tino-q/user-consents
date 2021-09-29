@@ -1,3 +1,4 @@
+sleep 5
 npm run build
 npm run migrate
 if [[ "${NODE_ENV}" == "test" ]]; then
